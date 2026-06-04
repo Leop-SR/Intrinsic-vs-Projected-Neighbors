@@ -1,21 +1,76 @@
-Intrinsic vs Projected Neighbors: A Study Using PCA and KNN
+# Intrinsic vs Projected Neighbors
 
-1. Motivation
+Study of how PCA affects local neighborhood structure in the Wine Quality dataset.
 
-This project aims to explore how dimensionality reduction techniques, particularly Principal Component Analysis (PCA), affect neighborhood structures in datasets and their impact on distance-based algorithms such as K-Nearest Neighbors (KNN).
+## Motivation
 
-The motivation behind this work is to connect the mathematical foundations of linear algebra and geometry with practical machine learning workflows, focusing on preprocessing decisions and their consequences on model behavior.
+PCA preserves variance, but does it preserve nearest-neighbor relationships?
 
-2. Dataset
+This project investigates how neighborhood structures change after projecting data into lower-dimensional subspaces.
 
-The dataset used in this project consists of physicochemical measurements related to wine quality. It includes multiple continuous features measured on different scales and a target variable representing wine quality.
+## Research Questions
 
-Key characteristics of the dataset:
+- How does PCA affect nearest-neighbor relationships?
+- To what extent are k-nearest neighbors preserved?
+- What are the implications for distance-based algorithms such as KNN?
 
-All features are numerical
+## Dataset
 
-Features have different units and ranges
+Wine Quality Dataset from UCI.
 
-Several features exhibit many statistical outliers
+- Samples: 1143
+- Features: 12 physicochemical measurements
+- Target: Wine quality score
 
-No missing values are present
+## Methodology
+
+1. Data preprocessing and scaling.
+2. PCA projection into 2D and 3D.
+3. Computation of k-nearest neighbors.
+4. Neighborhood overlap analysis.
+5. Quality-consistency analysis.
+
+## Main Results
+
+### PCA Projection
+
+The original 11-dimensional wine dataset was projected into lower-dimensional subspaces using PCA. Although the first principal components retain a large proportion of the total variance, projection inevitably removes information contained in the discarded dimensions.
+
+![PCA Projection](figs/robust-scaler-3d-pca.png)
+
+The 3D projection reveals the dominant geometric structure of the dataset and provides a visual representation of the variance captured by the principal components.
+
+
+### Neighborhood Preservation
+
+To quantify how PCA affects local geometry, we compared the k-nearest-neighbor sets in the original space with those obtained after projection. Neighborhood preservation was measured using the average neighborhood overlap.
+
+![Neighborhood Overlap](figs/overlap_vs_k.png)
+
+The results show that neighborhood overlap increases with both the number of retained principal components and the neighborhood size \(k\). However, even for larger values of \(k\), the projected spaces do not perfectly reproduce the original local structure. In particular, the 3D projection consistently preserves more neighbors than the 2D projection.
+
+
+### Quality Consistency
+
+Neighborhood preservation does not necessarily imply preservation of task-relevant information. To investigate this, we measured the average difference in wine quality between each sample and its neighbors.
+
+![Quality Consistency](figs/quality_difference_vs_k.png)
+
+Although dimensionality reduction alters local neighborhoods, the average quality difference remains relatively stable across projection dimensions. This suggests that PCA can distort geometric relationships while still preserving information associated with wine quality.
+
+### Key Findings
+
+- PCA modifies nearest-neighbor relationships even when a large proportion of variance is retained.
+- Increasing the number of principal components improves neighborhood preservation.
+- Larger neighborhood sizes lead to higher overlap between original and projected spaces.
+- Geometric preservation and quality consistency capture different aspects of the data.
+- Despite substantial neighborhood distortion, low-dimensional PCA projections can retain meaningful information related to wine quality.
+## Repository Structure
+
+intrinsic-vs-projected-neighbors/
+├── data/
+├── notebooks/
+├── src/
+├── figs/
+├── results/
+└── README.md
