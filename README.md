@@ -36,7 +36,7 @@ Wine Quality Dataset from UCI.
 
 The original 11-dimensional wine dataset was projected into lower-dimensional subspaces using PCA. Although the first principal components retain a large proportion of the total variance, projection inevitably removes information contained in the discarded dimensions.
 
-![PCA Projection](figs/robust-scaler-3d-pca.png)
+![PCA Projection](figs/Robust-scaler-3D-PCA.png)
 
 The 3D projection reveals the dominant geometric structure of the dataset and provides a visual representation of the variance captured by the principal components.
 
