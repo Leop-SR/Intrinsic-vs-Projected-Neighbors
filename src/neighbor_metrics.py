@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-def pairwise_distances(df: pd.DataFrame) -> pd.DataFrame:
-    data = df.values()
+def pairwise_distances(df: pd.DataFrame) -> np.array:
+    data = df.values
     diff = data[:,np.newaxis,:]-data[np.newaxis,:,:]
-    D = np.sqrt(np.sum(diff**2,axis=1))
+    D = np.sqrt(np.sum(diff**2,axis=2))
     return D
 
 def knn_indices(X: np.array,k: int) -> np.array:
@@ -23,3 +23,10 @@ def neighbor_overlap(knn_orig: np.array, knn_proj: np.array) -> np.array:
 
 def average_neighbor_overlap(knn_orig: np.array, knn_proj:np.array) -> np.array:
     return neighbor_overlap(knn_orig,knn_proj).mean()
+
+def avg_quality_difference(knn_indices, quality):
+    diffs = []
+    for i, neighbors in enumerate(knn_indices):
+        diff = np.mean(np.abs(quality[i] - quality[neighbors]))
+        diffs.append(diff)
+    return np.array(diffs)

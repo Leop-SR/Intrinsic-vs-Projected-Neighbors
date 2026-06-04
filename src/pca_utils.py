@@ -18,9 +18,3 @@ def explained_variance(pca: PCA):
     cumulative_var = var_p.sum()
     return var_p, cumulative_var
 
-def reconstruction_error(df: pd.DataFrame, X_pca, pca: PCA):
-    X_reconstructed = pca.inverse_transform(X_pca)
-    error = np.mean((df.values - X_reconstructed) ** 2)
-    return error
-
-    
