@@ -19,7 +19,7 @@ This project investigates how neighborhood structures change after projecting da
 Wine Quality Dataset from UCI.
 
 - Samples: 1143
-- Features: 12 physicochemical measurements
+- Features: 11 physicochemical measurements
 - Target: Wine quality score
 
 ## Methodology
